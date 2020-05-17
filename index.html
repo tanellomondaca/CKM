@@ -22,6 +22,7 @@
   <!-- Custom CSS -->
   <link href="css/stylish-portfolio.css" rel="stylesheet">
 
+
 </head>
 
 <body id="page-top">
@@ -213,7 +214,7 @@
         <div class="col-lg-8 mx-auto">
           <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19.-->
           <!-- <form id="contactForm" name="sentMessage" novalidate="novalidate"> -->
-          <form id="contactForm" name="sentMessage" novalidate="novalidate" action="assets/mail/contact_me.php" method="POST">
+          <form id="formulario" name="sentMessage">
             <div class="control-group">
               <div class="form-group floating-label-form-group controls mb-0 pb-2">
                 <label>Nombre</label><input class="form-control" id="name" type="text" placeholder="Nombre y apellido"
@@ -252,8 +253,37 @@
           </form>
         </div>
       </div>
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <a class="btn btn-success btn-lg btn-block" href="#" role="button">
+            <span>¡Háblanos por WhatsApp!</span>   
+          </a>
+        </div>
+      </div>
     </div>
   </section>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Call to Action -->
   <section class="content-section bg-primary text-white">
@@ -305,18 +335,93 @@
   </a>
 
   <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Plugin JavaScript -->
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-  <!-- Contact form JS-->
-  <script src="assets/mail/jqBootstrapValidation.js"></script>
-  <script src="assets/mail/contact_me.js"></script> 
-
   <!-- Custom scripts for this template -->
   <script src="js/stylish-portfolio.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      
+
+      $('#formulario').submit(function (event) {
+        event.preventDefault(); // prevent default submit behaviour
+
+        var name = $("input#name").val();
+        var email = $("input#email").val();
+        var phone = $("input#phone").val();
+        var message = $("textarea#message").val();
+        var firstName = name; // For Success/Failure Message
+        // Check for white space in name for Success/Fail message
+        if (firstName.indexOf(' ') >= 0) {
+        firstName = name.split(' ').slice(0, -1).join(' ');
+        }
+        console.log("hola"+$("input#name").val()+" "+email+" "+phone+" adios");
+
+        $.ajax({
+          url: "contact_me.php",
+          type: "POST",
+          data: {
+            name: name,
+            phone: phone,
+            email: email,
+            message: message
+          },
+        cache: false,
+        success: function() {
+          // Success message
+          $('#success').html("<div class='alert alert-success'>");
+          $('#success > .alert-success').html("<button type='button' class='close' data-dismiss='alert'aria-hidden='true'>&times;")
+            .append("</button>");
+          $('#success > .alert-success')
+          .append("<strong>Su mensaje ha sido enviado.</strong>");
+          $('#success > .alert-success')
+          .append('</div>');
+          //clear all fields
+          $('#contactForm').trigger("reset");
+        },
+        error: function() {
+        // Fail message
+        $('#success').html("<div class='alert alert-danger'>");
+          $('#success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert'aria-hidden='true'>&times;")
+            .append("</button>");
+          $('#success > .alert-danger').append($("<strong>").text("Lo sentimos " + firstName + ", al parecer tenemos problemas con el servidor. Por favor intent más tarde!"));
+            $('#success > .alert-danger').append('</div>');
+        //clear all fields
+        $('#contactForm').trigger("reset");
+        }
+        });
+      });
+    });
+
+      /*$("#formulario").submit(function (event) {
+        event.preventDefault();
+        console.log("hola"+$("#formulario").serialize()+"adios");
+
+        $.post("contact_me.php",
+          $("#formulario").serialize(),
+          function(respuesta){
+            $("#success").html(respuesta);
+          });*/
+
+        /*$.ajax({
+          type: 'POST',
+          url: 'contact_me.php',
+          data: $(this).serialize(),
+          success: function (data) {
+            //$("#respuesta").slideDown();
+            //$("#respuesta").html(data);
+            $('exampleModal').modal('show');
+            document.getElementById('Formulario').reset();
+          }
+        });*/
+    
+  </script>
 
 </body>
 
