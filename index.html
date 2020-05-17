@@ -383,7 +383,7 @@
           $('#success > .alert-success')
           .append('</div>');
           //clear all fields
-          $('#contactForm').trigger("reset");
+          $('#formulario').trigger("reset");
         },
         error: function() {
         // Fail message
@@ -393,7 +393,7 @@
           $('#success > .alert-danger').append($("<strong>").text("Lo sentimos " + firstName + ", al parecer tenemos problemas con el servidor. Por favor intent más tarde!"));
             $('#success > .alert-danger').append('</div>');
         //clear all fields
-        $('#contactForm').trigger("reset");
+        $('#formulario').trigger("reset");
         }
         });
       });

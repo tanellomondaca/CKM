@@ -22,7 +22,6 @@ if(!mail($to, $subject, $body, $header)){
 }else{
   echo "Enviado";
 }
- mail()
 
   
 ?>
