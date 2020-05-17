@@ -11,7 +11,7 @@ $phone = strip_tags(htmlspecialchars($_POST['phone']));
 $message = strip_tags(htmlspecialchars($_POST['message']));
 
 // Create the email and send the message
-$to = "contacto@ckmsolutions.cl,gabriel.lohse@ckmsolutions.cl"; // Add your email address in between the "" replacing yourname@yourdomain.com - This is where the form will send a message to.
+$to = "contacto@ckmsolutions.cl"; // Add your email address in between the "" replacing yourname@yourdomain.com - This is where the form will send a message to.
 $subject = "Formulario de contacto:  ".$name;
 $body = "Has recibido un mensaje de tu formulario.\n\n"."Detalles:\n\nNombre: $name\n\nEmail: $email\n\nTelefono: $phone\n\nMensaje:\n$message";
 $header = "De: noreply@ckmsolutions.cl\n"; // This is the email address the generated message will be from. We recommend using something like noreply@yourdomain.com.
