@@ -10,6 +10,11 @@ html {
   height: 100%;
 }
 
+.pequeno{
+  max-width: 16px;
+  height: auto;
+}
+
 body {
   font-family: 'Source Sans Pro';
 }
